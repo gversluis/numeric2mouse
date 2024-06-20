@@ -2,7 +2,7 @@
 
 Introduction
 ------------
-I wrote a daemon to map ir-keytable keys to mouse movements and combination keys.
+I wrote a daemon to map ir-keytable keys to mouse movements and combination keys on my Raspberry PI (though it should work on any Linux device with lirc in the kernel).
 
 It basically:
 - Creates a new user input
@@ -11,7 +11,7 @@ It basically:
 - If it is a predefined key map it to combination keys (i.e. KEY_CLOSE to ALT+F4)
 - Pass through everything else
 
-I wrote this for my own use so it is not tested except for my own Raspbian.
+I wrote this for my own use so it is not tested except on Wayland on my Raspberry Pi 4.
 
 History
 -------
