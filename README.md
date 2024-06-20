@@ -37,7 +37,7 @@ protocol = "rc-5"
 variant = "rc-5"
 [protocols.scancodes]
 ```
-6. From there on write pairs of keycode and key you want to map, i.e. ```0x0C = "KEY_CLOSE"```. The keys can be found at https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
+6. From there on write pairs of keycode and key you want to map per line, i.e. ```0x0C = "KEY_CLOSE"``` and ```0x02 = "KEY_NUMERIC_2"```. The keys can be found at https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
 7. Add ```* * Philips_RCLE013A.toml``` to ```/etc/rc_maps.cfg``` (replace "Philips_RCLE013A" with your own remote name)
 8. Load and test by running ```ir-keytable -c -w /etc/rc_keymaps/Philips-RCLE013A.toml -t -s rc3``` (replace rc3 with the device you got on the first line)
 
