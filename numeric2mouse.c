@@ -14,8 +14,6 @@
 //#include <linux/input.h>
 #include <linux/uinput.h>	// constants uinput
 
-#define size_of_array(a) ( sizeof(&a) / sizeof(a[0]) )
-
 #define die(str, args...) do { \
         perror(str); \
         exit(EXIT_FAILURE); \
@@ -156,7 +154,7 @@ int main(int argc, char* argv[])
 		char* input_device = NULL;
 
 		struct sigaction int_handler = {.sa_handler=handle_int};
-		sigaction(SIGINT,&int_handler,0);
+		sigaction(SIGINT, &int_handler,0);
 		sigaction(SIGTERM, &int_handler,0);
 
 		argc = handle_systemd(argc, argv);
@@ -169,14 +167,15 @@ int main(int argc, char* argv[])
 				die("error: specify input device, i.e. /dev/input/by-path/platform-ir-receiver@11-event");
 			}
 		}
+		system("/etc/init.d/inputlirc reload");	// make sure there is not existing version that locked the input
 
     fdo = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
-    if(fdo < 0) die("error: open");
+    if(fdo < 0) die("error: open uinput");
 
 		printf("Opening input device %s\n", input_device);
     fdi = open(input_device, O_RDONLY);
 		free(input_device);
-    if(fdi < 0) die("error: open");
+    if(fdi < 0) die("error: open input_device");
     if(ioctl(fdi, EVIOCGRAB, 1) < 0) die("error: ioctl");
 
 		setup_device(fdo);
