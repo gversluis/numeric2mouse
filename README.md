@@ -45,6 +45,9 @@ Installation
 ------------
 1. gcc numeric2mouse.c -o numeric2mouse
 2. numeric2mouse [device] (the default device is /dev/input/by-path/platform-ir-receiver*)
+3. Start automatically on boot by adding the following line to your crontab: @reboot <path to numeric2mouse> *
+
+* I tried starting it as a systemd service but when starting through systemd it could not access /dev/uinput.
 
 Credits
 -------
