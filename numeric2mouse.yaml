@@ -1,0 +1,157 @@
+# Configuration file for numeric2mouse
+# Place this file at /etc/numeric2mouse.yaml
+
+mappings:
+  # Numpad 1: Move mouse diagonal (down-left)
+  - key: KEY_NUMERIC_1
+    action:
+      type: move_mouse
+      x: -1
+      y: -1
+
+  # Numpad 2: Move mouse down
+  - key: KEY_NUMERIC_2
+    action:
+      type: move_mouse
+      x: 0
+      y: -1
+
+  # Numpad 3: Move mouse diagonal (down-right)
+  - key: KEY_NUMERIC_3
+    action:
+      type: move_mouse
+      x: 1
+      y: -1
+
+  # Numpad 4: Move mouse left
+  - key: KEY_NUMERIC_4
+    action:
+      type: move_mouse
+      x: -1
+      y: 0
+
+  # Numpad 6: Move mouse right
+  - key: KEY_NUMERIC_6
+    action:
+      type: move_mouse
+      x: 1
+      y: 0
+
+  # Numpad 7: Move mouse diagonal (up-left)
+  - key: KEY_NUMERIC_7
+    action:
+      type: move_mouse
+      x: -1
+      y: 1
+
+  # Numpad 8: Move mouse up
+  - key: KEY_NUMERIC_8
+    action:
+      type: move_mouse
+      x: 0
+      y: 1
+
+  # Numpad 9: Move mouse diagonal (up-right)
+  - key: KEY_NUMERIC_9
+    action:
+      type: move_mouse
+      x: 1
+      y: 1
+
+  # Close window with Alt+F4
+  - key: KEY_CLOSE
+    action:
+      type: key_combination
+      keys:
+        - KEY_LEFTALT
+        - KEY_F4
+
+  # Execute a radio script with rate limiting
+  - key: KEY_RADIO
+    action:
+      type: execute
+      command: /usr/local/bin/radio.sh
+      rateLimitInSeconds: 6
+
+  # Example: Execute without rate limiting (rateLimitInSeconds: 0 or omit)
+  # - key: KEY_POWER
+  #   action:
+  #     type: execute
+  #     command: /usr/local/bin/toggle_power.sh
+
+  # Example: Volume control using kernel RC table keys
+  # - key: KEY_VOLUMEUP
+  #   action:
+  #     type: execute
+  #     command: pactl set-sink-volume @DEFAULT_SINK@ +5%
+  #     rateLimitInSeconds: 5
+  
+  # - key: KEY_VOLUMEDOWN
+  #   action:
+  #     type: execute
+  #     command: pactl set-sink-volume @DEFAULT_SINK@ -5%
+  #     rateLimitInSeconds: 5
+
+  # Example: Channel navigation
+  # - key: KEY_CHANNELUP
+  #   action:
+  #     type: key_combination
+  #     keys:
+  #       - KEY_UP
+  
+  # - key: KEY_CHANNELDOWN
+  #   action:
+  #     type: key_combination
+  #     keys:
+  #       - KEY_DOWN
+
+  # Example: EPG (Electronic Program Guide) button opens a menu
+  # - key: KEY_EPG
+  #   action:
+  #     type: key_combination
+  #     keys:
+  #       - KEY_LEFTMETA
+  #       - KEY_G
+
+  # Example: Colored buttons for common actions
+  # - key: KEY_RED
+  #   action:
+  #     type: execute
+  #     command: systemctl poweroff
+  
+  # - key: KEY_GREEN
+  #   action:
+  #     type: execute
+  #     command: xdg-screensaver lock
+
+  # Example: Copy with Ctrl+C
+  # - key: KEY_NUMERIC_0
+  #   action:
+  #     type: key_combination
+  #     keys:
+  #       - KEY_LEFTCTRL
+  #       - KEY_C
+
+# Notes:
+# 1. For move_mouse actions:
+#    - x and y values of -1, 0, or 1 indicate direction
+#    - The actual speed is calculated by the program based on key repeat
+#
+# 2. For key_combination actions:
+#    - Keys are pressed in the order listed
+#    - All keys except the last are released, then the last key is released
+#
+# 3. For execute actions:
+#    - command: The command to execute (as if from command line)
+#    - rateLimitInSeconds: Maximum number of times per second to execute (optional)
+#      * 0 or omitted = unlimited
+#      * Prevents accidental rapid executions from key repeats
+#    - Commands are executed asynchronously (forked process)
+#    - Only executes on key press (not on key repeat or release)
+#
+# 4. Available key names are defined in key_mappings.h
+#    Based on Linux kernel input-event-codes.h and RC tables
+#    You can also use hex codes like 0x1c or decimal codes like 28
+#    See: https://docs.kernel.org/userspace-api/media/rc/rc-tables.html
+#
+# 5. To find key codes: Run `evtest` on your input device
